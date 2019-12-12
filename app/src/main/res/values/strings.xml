@@ -1,3 +1,46 @@
 <resources>
     <string name="app_name">The Angkringan</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="latest_recipe_title">Latest Recipe</string>
+    <string name="category_recipe_title">Category Recipe</string>
+    <string name="recipe_nav_title">Recipe</string>
+    <string name="event_nav_title">Events</string>
+    <string name="account_nav_title">Account</string>
+    <string name="recipe_title">Recipe Title</string>
+    <string name="location_title">Location</string>
+    <string name="event_and_promo_title">Event and Promo</string>
+    <string name="dummy_description">I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</string>
+    <string name="dummy_content">I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="account_title">Account</string>
+    <string name="username_title">Username</string>
+    <string name="password_title">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_up_text">or click here to Sign up?</string>
+    <string name="sign_in_btn">Sign In</string>
+    <string name="email_username">Enter your username or Email</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="placeholder_fullname">Enter Your Fullname</string>
+    <string name="placeholder_phone">Enter your phone</string>
+    <string name="placeholder_location">Enter your address</string>
+    <string name="placeholder_password">Enter your password</string>
+    <string name="sub_header_signup">Register your credentials below</string>
+    <string name="placeholder_email">Enter your email</string>
+    <string name="sub_header_login">Enter your credentials below</string>
+    <string name="category_recipe">Category recipe : Masakan Padang</string>
+    <string name="rating_value">4.5</string>
+    <string name="btn_sign_in_text">Already have an account? Sign in Now</string>
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+    <string name="text_gender">Gender</string>
+    <string name="sign_up_btn">Sign up</string>
+    <string name="dummy_name">Wawan Rahmawan</string>
+    <string name="dummy_email">wawan_rahmawah@gmail.com</string>
+    <string name="dummy_recipe_title">Recipe</string>
+    <string name="dummy_recipe_fav">Favorite</string>
 </resources>

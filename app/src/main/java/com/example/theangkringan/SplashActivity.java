@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.theangkringan.ui.authentication.LoginActivity;
+
 public class SplashActivity extends Activity {
 
     @Override
@@ -17,7 +19,7 @@ public class SplashActivity extends Activity {
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }finally {
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent i = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(i);
                 }
 
