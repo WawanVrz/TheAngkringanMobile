@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -33,6 +34,12 @@ public interface TheAngkringanAPI {
     @GET("lastest") //done
     Call<BaseResponse<ArrayList<RecipeModel>>> getNewRecipe();
 
+    @GET("recipes/get_wishlist") //done
+    Call<BaseResponse<ArrayList<RecipeModel>>> getWishlist(
+            @Header("Authorization") String authorization,
+            @Query("user_id") String user_id
+    );
+
     @GET("recipes/search") //done
     Call<BaseResponse<ArrayList<RecipeModel>>> searchRecipe(
             @Query("string") String string_name
@@ -48,14 +55,21 @@ public interface TheAngkringanAPI {
             @Query("user_id") String user_id
     );
 
-    @GET("recipes/location")
+    @GET("recipes/location") //done
     Call<BaseResponse<ArrayList<RecipeModel>>> getRecipeByLocation(
             @Query("province") String province
     );
 
-    @GET("recipes/category")
+    @GET("recipes/category") //done
     Call<BaseResponse<ArrayList<RecipeModel>>> getRecipeByCategory(
             @Query("recipe_category") String recipe_category
+    );
+
+    @GET("recipes/add_wishlist")
+    Call<BaseResponse<ArrayList<RecipeModel>>> addWishlistRecipe (
+            @Header("Authorization") String authorization,
+            @Query("user_id") String user_id,
+            @Query("recipe_id") String recipe_id
     );
 
     @FormUrlEncoded //done
@@ -66,7 +80,7 @@ public interface TheAngkringanAPI {
     );
 
     @FormUrlEncoded
-    @POST("account/register")
+    @POST("account/register") //done
     Call<BaseResponse<LoginModel>> doRegiterMember(
             @Field("fullname") String fullname,
             @Field("address") String address,

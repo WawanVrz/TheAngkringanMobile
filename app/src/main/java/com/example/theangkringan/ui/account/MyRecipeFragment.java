@@ -1,11 +1,4 @@
-package com.example.theangkringan.ui.recipes;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+package com.example.theangkringan.ui.account;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.theangkringan.R;
 import com.example.theangkringan.adapters.RecipeAdapter;
@@ -26,25 +25,26 @@ import com.example.theangkringan.services.TheAngkringanServices;
 
 import java.util.ArrayList;
 
-public class RecipesFragment extends Fragment {
+public class MyRecipeFragment extends Fragment {
 
     private RecyclerView mRecyclerview;
-    private RecipeAdapter mAdapter;
-    private ArrayList<RecipeModel> listRecipe = new ArrayList<>();
-    private TheAngkringanAPI appApi;
-    static final String TAG = RecipesFragment.class.getSimpleName();
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_recipes, container, false);
-        return root;
+    private RecipeAdapter mAdapter;
+    private ArrayList<RecipeModel> listRecipeApprove = new ArrayList<>();
+    private TheAngkringanAPI appApi;
+    static final String TAG = MyRecipeFragment.class.getSimpleName();
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_my_recipe, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerview = view.findViewById(R.id.rv_latest_recipe);
+        mRecyclerview = view.findViewById(R.id.rv_approved_recipe);
         mRecyclerview.setHasFixedSize(true);
         initRecyclerview();
     }
@@ -58,20 +58,18 @@ public class RecipesFragment extends Fragment {
         mAdapter.setOnItemClickCallback(new OnRecipeClickCallback() {
             @Override
             public void onItemClicked(RecipeModel data) {
-                Intent intent = new Intent(getActivity(), DetailRecipeActivity.class);
-                intent.putExtra(DetailRecipeActivity.RECIPE_ID, String.valueOf(data.getId()));
-                startActivity(intent);
+
             }
         });
-        mAdapter.setRecipeData(listRecipe);
-        retrieveAllRecipe();
+        mAdapter.setRecipeData(listRecipeApprove);
+        retrieveWishlistRecipe();
     }
 
     // Call Api
-    private void retrieveAllRecipe() {
+    private void retrieveWishlistRecipe() {
         try {
             appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
-            Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.getAllRecipe();
+            Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.getWishlist("YcLvMVWIPlglI1wTXUd21576165193", "5");
             call.enqueue(new Callback<BaseResponse<ArrayList<RecipeModel>>>() {
                 @Override
                 public void onResponse(Call<BaseResponse<ArrayList<RecipeModel>>> call, Response<BaseResponse<ArrayList<RecipeModel>>> response) {
@@ -79,8 +77,8 @@ public class RecipesFragment extends Fragment {
                         if (response.isSuccessful()) {
                             if (response.body().getData() != null
                                     || response.body().getData().size() > 0) {
-                                listRecipe.addAll(response.body().getData());
-                                mAdapter.setRecipeData(listRecipe);
+                                listRecipeApprove.addAll(response.body().getData());
+                                mAdapter.setRecipeData(listRecipeApprove);
                             }
                         }
                     } catch (Exception e) {

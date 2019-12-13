@@ -14,9 +14,12 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.recipes.SearchRecipeActivity"></activity>
+        <activity android:name=".ui.recipes.AddRecipeActivity"></activity>
+        <activity android:name=".ui.recipes.SearchRecipeActivity" />
         <activity android:name=".ui.recipes.DetailRecipeListActivity" />
-        <activity android:name=".ui.recipes.DetailRecipeActivity" />
+        <activity
+            android:name=".ui.recipes.DetailRecipeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.event.DetailEventActivity" />
         <activity
             android:name=".ui.authentication.ChangePasswordActivity"

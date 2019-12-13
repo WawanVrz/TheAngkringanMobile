@@ -272,7 +272,7 @@ public class HomeFragment extends Fragment {
     private void retrieveLatestRecipe() {
         try {
             appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
-            Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.getAllRecipe();
+            Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.getNewRecipe();
             call.enqueue(new Callback<BaseResponse<ArrayList<RecipeModel>>>() {
                 @Override
                 public void onResponse(Call<BaseResponse<ArrayList<RecipeModel>>> call, Response<BaseResponse<ArrayList<RecipeModel>>> response) {

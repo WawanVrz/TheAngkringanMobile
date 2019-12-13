@@ -58,10 +58,54 @@
             android:layout_height="wrap_content"
             android:text="1234"
             android:textSize="14sp"
-            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_rating" />
+
+
+        <TextView
+            android:id="@+id/tv_detail_ingridient_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_ingridients"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_desc" />
+
+        <TextView
+            android:id="@+id/tv_detail_ingridient"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_ingridients"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_ingridient_label" />
+
+        <TextView
+            android:id="@+id/tv_detail_cook_step_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/how_to_cook"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_ingridient" />
+
+        <TextView
+            android:id="@+id/tv_detail_cook_step"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/how_to_cook"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_cook_step_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

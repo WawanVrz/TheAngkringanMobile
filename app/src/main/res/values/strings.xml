@@ -43,4 +43,14 @@
     <string name="dummy_email">wawan_rahmawah@gmail.com</string>
     <string name="dummy_recipe_title">Recipe</string>
     <string name="dummy_recipe_fav">Favorite</string>
+    <string name="revision_recipe">Revision Recipe!</string>
+    <string name="inprogress_recipe">inProgress Recipe</string>
+    <string name="approval_recipe">Approval Recipe</string>
+    <string name="add_recipe">Add recipe</string>
+    <string name="tv_recipe_title">Recipe title</string>
+    <string name="tv_description">Description</string>
+    <string name="tv_ingridients">Ingridients</string>
+    <string name="how_to_cook">How to cook</string>
+    <string name="input_the_detail">input the detail</string>
+    <string name="del_btn">Del</string>
 </resources>

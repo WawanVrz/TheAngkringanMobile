@@ -9,6 +9,7 @@ import retrofit2.Response;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.example.theangkringan.HomeActivity;
 import com.example.theangkringan.R;
 import com.example.theangkringan.models.BaseResponse;
 import com.example.theangkringan.models.LoginModel;
+import com.example.theangkringan.services.AppPreferences;
 import com.example.theangkringan.services.TheAngkringanAPI;
 import com.example.theangkringan.services.TheAngkringanServices;
 import com.google.android.material.textfield.TextInputLayout;
@@ -45,6 +47,11 @@ public class LoginActivity extends AppCompatActivity {
 
         inputEmail = findViewById(R.id.edt_username);
         inputPassword = findViewById(R.id.edt_password);
+
+        if(!TextUtils.isEmpty(AppPreferences.getUserToken(LoginActivity.this))){
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+        }
 
         linkToSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
                         if (response.body().getData() != null) {
+                            AppPreferences.storeUserToken(LoginActivity.this, response.body().getData().getToken());
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();

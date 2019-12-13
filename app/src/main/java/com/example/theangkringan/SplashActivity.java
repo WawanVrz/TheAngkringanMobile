@@ -19,7 +19,7 @@ public class SplashActivity extends Activity {
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }finally {
-                    Intent i = new Intent(SplashActivity.this, LoginActivity.class);
+                    Intent i = new Intent(SplashActivity.this, HomeActivity.class);
                     startActivity(i);
                 }
 
