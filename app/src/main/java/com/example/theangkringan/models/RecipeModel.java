@@ -8,7 +8,7 @@ public class RecipeModel implements Parcelable {
     private int id;
     private int user_id;
     private String recipe_name;
-    private int recipe_category;
+    private String recipe_category;
     private String description;
     private String image = null;
     private String gallery = null;
@@ -16,8 +16,8 @@ public class RecipeModel implements Parcelable {
     private String inggridients;
     private String cookmethd;
     private String notes = null;
-    private int province;
-    private int city;
+    private String province;
+    private String city;
     private int status;
     private String views = null;
     private String whislist = null;
@@ -50,11 +50,11 @@ public class RecipeModel implements Parcelable {
         this.recipe_name = recipe_name;
     }
 
-    public int getRecipe_category() {
+    public String getRecipe_category() {
         return recipe_category;
     }
 
-    public void setRecipe_category(int recipe_category) {
+    public void setRecipe_category(String recipe_category) {
         this.recipe_category = recipe_category;
     }
 
@@ -114,19 +114,19 @@ public class RecipeModel implements Parcelable {
         this.notes = notes;
     }
 
-    public int getProvince() {
+    public String getProvince() {
         return province;
     }
 
-    public void setProvince(int province) {
+    public void setProvince(String province) {
         this.province = province;
     }
 
-    public int getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(int city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
@@ -196,7 +196,7 @@ public class RecipeModel implements Parcelable {
         dest.writeInt(this.id);
         dest.writeInt(this.user_id);
         dest.writeString(this.recipe_name);
-        dest.writeInt(this.recipe_category);
+        dest.writeString(this.recipe_category);
         dest.writeString(this.description);
         dest.writeString(this.image);
         dest.writeString(this.gallery);
@@ -204,8 +204,8 @@ public class RecipeModel implements Parcelable {
         dest.writeString(this.inggridients);
         dest.writeString(this.cookmethd);
         dest.writeString(this.notes);
-        dest.writeInt(this.province);
-        dest.writeInt(this.city);
+        dest.writeString(this.province);
+        dest.writeString(this.city);
         dest.writeInt(this.status);
         dest.writeString(this.views);
         dest.writeString(this.whislist);
@@ -222,7 +222,7 @@ public class RecipeModel implements Parcelable {
         this.id = in.readInt();
         this.user_id = in.readInt();
         this.recipe_name = in.readString();
-        this.recipe_category = in.readInt();
+        this.recipe_category = in.readString();
         this.description = in.readString();
         this.image = in.readString();
         this.gallery = in.readString();
@@ -230,8 +230,8 @@ public class RecipeModel implements Parcelable {
         this.inggridients = in.readString();
         this.cookmethd = in.readString();
         this.notes = in.readString();
-        this.province = in.readInt();
-        this.city = in.readInt();
+        this.province = in.readString();
+        this.city = in.readString();
         this.status = in.readInt();
         this.views = in.readString();
         this.whislist = in.readString();

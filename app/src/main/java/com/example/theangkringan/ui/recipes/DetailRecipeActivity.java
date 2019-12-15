@@ -2,6 +2,7 @@ package com.example.theangkringan.ui.recipes;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,15 +15,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.theangkringan.R;
 import com.example.theangkringan.adapters.RecipeAdapter;
 import com.example.theangkringan.adapters.UserCommentAdapter;
@@ -36,6 +41,7 @@ import com.example.theangkringan.models.ReviewModel;
 import com.example.theangkringan.services.AppPreferences;
 import com.example.theangkringan.services.TheAngkringanAPI;
 import com.example.theangkringan.services.TheAngkringanServices;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -49,8 +55,13 @@ public class DetailRecipeActivity extends AppCompatActivity {
     private TextView tvDetailDesc;
     private TextView tvDetailIngridient;
     private TextView tvDetailCook;
+    private TextView tvVideoLink;
+    private TextView tvDetailProvcity;
     private RatingBar rbDetailRating;
     private Button btnAddReview;
+    private Toolbar mToolbar;
+    private CollapsingToolbarLayout collapsToolbar;
+    private ImageView imgCover;
 
     private RecyclerView mRecyclerview;
     private UserCommentAdapter mAdapter;
@@ -64,17 +75,28 @@ public class DetailRecipeActivity extends AppCompatActivity {
     private String recipe_id = "";
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_recipe);
 
+        mToolbar = findViewById(R.id.recipe_toolbar);
+        collapsToolbar = findViewById(R.id.collapsing_toolbar_layout);
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        imgCover = findViewById(R.id.img_detail_backdrop);
         tvRecipeTitle = findViewById(R.id.tv_recipe_title);
         tvCategoryRecipe = findViewById(R.id.tv_category_recipe);
         tvDetailRating = findViewById(R.id.tv_detail_rating);
         tvDetailDesc = findViewById(R.id.tv_detail_desc);
         tvDetailIngridient = findViewById(R.id.tv_detail_ingridient);
         tvDetailCook = findViewById(R.id.tv_detail_cook_step);
+        tvVideoLink = findViewById(R.id.tv_video_link);
+        tvDetailProvcity = findViewById(R.id.tv_detail_provcity);
         btnAddReview = findViewById(R.id.btn_add_review);
         rbDetailRating = findViewById(R.id.rb_detail_rating);
         mRecyclerview = findViewById(R.id.rv_list_review);
@@ -99,6 +121,12 @@ public class DetailRecipeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     public void ShowDialog()
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -113,8 +141,6 @@ public class DetailRecipeActivity extends AppCompatActivity {
         builder.setPositiveButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d("ratingnya : ", ratingBar.getProgress()+"");
-                        Log.d("ratingnya : ", editText.getText().toString());
                         addComment(userPreference.getUserUnique(DetailRecipeActivity.this),recipe_id, ratingBar.getProgress()+"", editText.getText().toString());
                         dialog.dismiss();
                     }
@@ -132,13 +158,26 @@ public class DetailRecipeActivity extends AppCompatActivity {
     }
 
 
-    private void setDetailData(String title, String category, String rating, String desc, String ingridient, String step){
+    private void setDetailData(String title, String category,
+                               String rating, String desc,
+                               String ingridient, String step,
+                               String image_backdrop, String videoLink, String province, String city){
+        mToolbar.setTitle(title);
+        collapsToolbar.setTitle(title);
+        Glide.with(this)
+                .load(image_backdrop)
+                .apply(new RequestOptions().placeholder(R.drawable.logo).error(R.drawable.logo))
+                .into(imgCover);
+        tvVideoLink.setText(Html.fromHtml(
+                "<a href=\""+videoLink+"\">Video lengkap "+title+"</a> "));
+        tvVideoLink.setMovementMethod(LinkMovementMethod.getInstance());
         tvRecipeTitle.setText(title);
         tvCategoryRecipe.setText(category);
         tvDetailRating.setText(rating);
         tvDetailDesc.setText(desc);
         tvDetailIngridient.setText(Html.fromHtml(ingridient));
         tvDetailCook.setText(Html.fromHtml(step));
+        tvDetailProvcity.setText(province + " - "+city);
     }
 
     private void initRecyclerview(String recipe_id){
@@ -163,7 +202,10 @@ public class DetailRecipeActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             if (response.body().getData() != null) {
                                 RecipeModel data = response.body().getData();
-                                setDetailData(data.getRecipe_name(), "category A", "5",data.getDescription(), data.getInggridients(), data.getCookmethd());
+                                setDetailData(data.getRecipe_name(), "Category : "+data.getRecipe_category(), "5",
+                                        data.getDescription(), data.getInggridients(), data.getCookmethd(),
+                                        data.getImage(), data.getVideo(), data.getProvince(), data.getCity());
+                                retrieveRating(recipe_id);
                             }
                         }
                     } catch (Exception e) {
@@ -255,7 +297,8 @@ public class DetailRecipeActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             if (response.body().getData() != null) {
                                 rbDetailRating.setRating(response.body().getData().getTotalrating());
-                                tvDetailRating.setText(response.body().getData().getTotalrating()+"");
+                                tvDetailRating.setText(String.valueOf(response.body().getData().getTotalrating()));
+
                             }
                         }
                     } catch (Exception e) {

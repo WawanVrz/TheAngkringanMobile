@@ -43,9 +43,6 @@ public class AddItemRecipeAdapter extends RecyclerView.Adapter<AddItemRecipeAdap
 
     @Override
     public void onBindViewHolder(@NonNull final AddViewHolder holder, final int position) {
-//        if(listRecipe.size() > 0) {
-//            map.put(holder.getAdapterPosition(), listRecipe.get(holder.getAdapterPosition()));
-//        }
         String text = map.get(holder.getAdapterPosition());
         holder.inputText.setText(text != null ? text : "");
         holder.inputText.addTextChangedListener(new TextWatcher() {

@@ -22,6 +22,12 @@ public class DetailEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle(getString(R.string.event_and_promo_title));
+        }
+
         setContentView(R.layout.activity_detail_event);
         imgCover = findViewById(R.id.img_event_promo);
         tvTitle = findViewById(R.id.tv_event_promo);
@@ -32,5 +38,11 @@ public class DetailEventActivity extends AppCompatActivity {
                 .into(imgCover);
         tvTitle.setText(getIntent().getExtras().get(DATA_TITLE).toString());
         tvDesc.setText(getIntent().getExtras().get(DATA_DESC).toString());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

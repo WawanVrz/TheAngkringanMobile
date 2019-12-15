@@ -69,4 +69,8 @@
 
     <string name="tab_my_recipe">My Recipe</string>
     <string name="tab_my_wishlist">My Wishlist</string>
+    <string name="terms_and_conditions">Terms and Conditions ></string>
+    <string name="about_us">About Us ></string>
+    <string name="logout_the_angkringan">Logout The Angkringan</string>
+    <string name="detail_makanan">detail makanan</string>
 </resources>

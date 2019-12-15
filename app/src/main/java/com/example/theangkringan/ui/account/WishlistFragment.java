@@ -49,7 +49,7 @@ public class WishlistFragment extends Fragment {
     }
 
     private void initRecyclerview(){
-        mRecyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mRecyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         mAdapter = new RecipeAdapter();
         mAdapter.notifyDataSetChanged();
         mRecyclerview.setAdapter(mAdapter);

@@ -36,6 +36,7 @@ import com.example.theangkringan.models.LocationModel;
 import com.example.theangkringan.models.RecipeModel;
 import com.example.theangkringan.services.TheAngkringanAPI;
 import com.example.theangkringan.services.TheAngkringanServices;
+import com.example.theangkringan.ui.recipes.DetailRecipeActivity;
 import com.example.theangkringan.ui.recipes.DetailRecipeListActivity;
 import com.example.theangkringan.ui.recipes.SearchRecipeActivity;
 
@@ -134,7 +135,9 @@ public class HomeFragment extends Fragment {
         mAdapter.setOnItemClickCallback(new OnLatestRecipeClickCallback() {
             @Override
             public void onItemClicked(RecipeModel data) {
-
+                Intent intent = new Intent(getActivity(), DetailRecipeActivity.class);
+                intent.putExtra(DetailRecipeActivity.RECIPE_ID, String.valueOf(data.getId()));
+                startActivity(intent);
             }
         });
         mAdapter.setRecipeData(listRecipe);

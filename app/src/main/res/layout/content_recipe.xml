@@ -53,14 +53,25 @@
             app:layout_constraintTop_toTopOf="@+id/rb_detail_rating" />
 
         <TextView
-            android:id="@+id/tv_detail_desc"
+            android:id="@+id/tv_detail_provcity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="1234"
-            android:textSize="14sp"
+            android:text="Province Bali"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_rating" />
+
+        <TextView
+            android:id="@+id/tv_detail_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_makanan"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_provcity" />
 
 
         <TextView
@@ -108,6 +119,40 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_cook_step_label" />
 
         <TextView
+            android:id="@+id/tv_title_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Video Link"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_cook_step" />
+
+        <TextView
+            android:id="@+id/tv_video_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="www.youtube.com"
+            android:textColor="@color/colorLink"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_video" />
+
+        <TextView
+            android:id="@+id/tv_video_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            android:text="Klik Link diatas untuk melihat video lengkap dari resep ini. . ."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_link" />
+
+
+        <TextView
             android:id="@+id/tv_title_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,7 +162,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail_cook_step" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_info" />
 
         <View
             android:layout_width="match_parent"

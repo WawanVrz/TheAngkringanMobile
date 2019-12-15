@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -60,7 +61,9 @@ public class DetailRecipeListActivity extends AppCompatActivity {
         mAdapter.setOnItemClickCallback(new OnRecipeClickCallback() {
             @Override
             public void onItemClicked(RecipeModel data) {
-
+                Intent intent = new Intent(DetailRecipeListActivity.this, DetailRecipeActivity.class);
+                intent.putExtra(DetailRecipeActivity.RECIPE_ID, String.valueOf(data.getId()));
+                startActivity(intent);
             }
         });
         mAdapter.setRecipeData(listRecipe);

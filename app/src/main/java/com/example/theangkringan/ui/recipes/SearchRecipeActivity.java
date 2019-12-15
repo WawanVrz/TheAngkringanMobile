@@ -14,7 +14,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.theangkringan.R;
 import com.example.theangkringan.adapters.RecipeAdapter;
 import com.example.theangkringan.interfaces.OnRecipeClickCallback;
@@ -29,10 +35,12 @@ public class SearchRecipeActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerview;
     private RecipeAdapter mAdapter;
+
     private ArrayList<RecipeModel> listRecipe = new ArrayList<>();
     private TheAngkringanAPI appApi;
     static final String TAG = SearchRecipeActivity.class.getSimpleName();
-
+    private ProgressBar progressBar;
+    private LinearLayout layoutError;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +49,8 @@ public class SearchRecipeActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+        progressBar = findViewById(R.id.search_loading);
+        layoutError = findViewById(R.id.layout_error);
         mRecyclerview = findViewById(R.id.rv_search_recipe);
         mRecyclerview.setHasFixedSize(true);
         initRecyclerview();
@@ -101,6 +111,7 @@ public class SearchRecipeActivity extends AppCompatActivity {
 
     private void retrieveRecipe(String param) {
         try {
+            showLoading(true);
             appApi = TheAngkringanServices.getRetrofit(SearchRecipeActivity.this).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.searchRecipe(param);
             call.enqueue(new Callback<BaseResponse<ArrayList<RecipeModel>>>() {
@@ -108,24 +119,50 @@ public class SearchRecipeActivity extends AppCompatActivity {
                 public void onResponse(Call<BaseResponse<ArrayList<RecipeModel>>> call, Response<BaseResponse<ArrayList<RecipeModel>>> response) {
                     try {
                         if (response.isSuccessful()) {
-                            if (response.body().getData() != null
-                                    || response.body().getData().size() > 0) {
-                                listRecipe.clear();
-                                listRecipe.addAll(response.body().getData());
-                                mAdapter.setRecipeData(listRecipe);
+                            if (response.body().getData() != null){
+                                    if(response.body().getData().size() > 0) {
+                                        layoutError.setVisibility(View.GONE);
+                                        mRecyclerview.setVisibility(View.VISIBLE);
+                                        listRecipe.clear();
+                                        listRecipe.addAll(response.body().getData());
+                                        mAdapter.setRecipeData(listRecipe);
+                                        showLoading(false);
+                                    }
+                            }else{
+                                showLoading(false);
+                                dataNotFound();
                             }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
+                        showLoading(false);
+                        dataNotFound();
                     }
                 }
                 @Override
                 public void onFailure(Call<BaseResponse<ArrayList<RecipeModel>>> call, Throwable t) {
                     Log.d(TAG, "Error");
+                    showLoading(false);
+                    dataNotFound();
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
+            showLoading(false);
+            dataNotFound();
         }
+    }
+
+    private void showLoading(Boolean state) {
+        if (state) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void dataNotFound(){
+        mRecyclerview.setVisibility(View.GONE);
+        layoutError.setVisibility(View.VISIBLE);
     }
 }

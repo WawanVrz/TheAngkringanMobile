@@ -51,7 +51,7 @@ public interface TheAngkringanAPI {
     @GET("recipes") //done
     Call<BaseResponse<ArrayList<RecipeModel>>> getAllRecipe();
 
-    @GET("lastest") //done
+    @GET("recipes/lastest") //done
     Call<BaseResponse<ArrayList<RecipeModel>>> getNewRecipe();
 
     @GET("recipes/get_wishlist") //done
@@ -100,6 +100,10 @@ public interface TheAngkringanAPI {
             @Query("user_id") String user_id
     );
 
+    @GET("recipes/rejected")
+    Call<BaseResponse<ArrayList<RecipeModel>>> getRecipeRejected(
+            @Query("user_id") String user_id
+    );
 
     @GET("recipes/location") //done
     Call<BaseResponse<ArrayList<RecipeModel>>> getRecipeByLocation(
