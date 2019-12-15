@@ -77,7 +77,7 @@ public class DetailRecipeListActivity extends AppCompatActivity {
     // retrieve recipe by category id
     private void retrieveCatRecipe(String id) {
         try {
-            appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+            appApi = TheAngkringanServices.getRetrofit(DetailRecipeListActivity.this).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.getRecipeByCategory(id);
             call.enqueue(new Callback<BaseResponse<ArrayList<RecipeModel>>>() {
                 @Override
@@ -107,7 +107,7 @@ public class DetailRecipeListActivity extends AppCompatActivity {
     // retrieve recipe by location id
     private void retrieveLocRecipe(String id) {
         try {
-            appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+            appApi = TheAngkringanServices.getRetrofit(DetailRecipeListActivity.this).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.getRecipeByLocation(id);
             call.enqueue(new Callback<BaseResponse<ArrayList<RecipeModel>>>() {
                 @Override

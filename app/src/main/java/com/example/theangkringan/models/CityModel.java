@@ -3,10 +3,10 @@ package com.example.theangkringan.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class LocationModel implements Parcelable {
+public class CityModel implements Parcelable {
     private int id;
     private String name;
-    private String image;
+    private int master_province_id;
     private String created_at = null;
     private String updated_at = null;
     private String deleted_at = null;
@@ -32,12 +32,12 @@ public class LocationModel implements Parcelable {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
+    public int getMaster_province_id() {
+        return master_province_id;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setMaster_province_id(int master_province_id) {
+        this.master_province_id = master_province_id;
     }
 
     public String getCreated_at() {
@@ -73,33 +73,33 @@ public class LocationModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.name);
-        dest.writeString(this.image);
+        dest.writeInt(this.master_province_id);
         dest.writeString(this.created_at);
         dest.writeString(this.updated_at);
         dest.writeString(this.deleted_at);
     }
 
-    public LocationModel() {
+    public CityModel() {
     }
 
-    protected LocationModel(Parcel in) {
+    protected CityModel(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
-        this.image = in.readString();
+        this.master_province_id = in.readInt();
         this.created_at = in.readString();
         this.updated_at = in.readString();
         this.deleted_at = in.readString();
     }
 
-    public static final Parcelable.Creator<LocationModel> CREATOR = new Parcelable.Creator<LocationModel>() {
+    public static final Parcelable.Creator<CityModel> CREATOR = new Parcelable.Creator<CityModel>() {
         @Override
-        public LocationModel createFromParcel(Parcel source) {
-            return new LocationModel(source);
+        public CityModel createFromParcel(Parcel source) {
+            return new CityModel(source);
         }
 
         @Override
-        public LocationModel[] newArray(int size) {
-            return new LocationModel[size];
+        public CityModel[] newArray(int size) {
+            return new CityModel[size];
         }
     };
 }

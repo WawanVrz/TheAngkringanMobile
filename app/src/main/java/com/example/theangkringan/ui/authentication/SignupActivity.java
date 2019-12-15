@@ -159,7 +159,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void callSingUp(String username, String password, String fullname, String phonenum, String location, String gender){
-        appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+        appApi = TheAngkringanServices.getRetrofit(SignupActivity.this).create(TheAngkringanAPI.class);
         Call<BaseResponse<LoginModel>> call = appApi.doRegiterMember(fullname, location, username,phonenum, gender, password);
         call.enqueue(new Callback<BaseResponse<LoginModel>>() {
             @Override

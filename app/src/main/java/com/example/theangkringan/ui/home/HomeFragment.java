@@ -182,7 +182,7 @@ public class HomeFragment extends Fragment {
     // ======================================
     private void retrievePromo(){
         try {
-            appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+            appApi = TheAngkringanServices.getRetrofit(getActivity()).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<EventModel>>> call = appApi.getAllPromos();
             call.enqueue(new Callback<BaseResponse<ArrayList<EventModel>>>() {
                 @Override
@@ -211,7 +211,7 @@ public class HomeFragment extends Fragment {
 
     private void retrieveCatRecipe(){
         try {
-            appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+            appApi = TheAngkringanServices.getRetrofit(getActivity()).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<CategoryRecipeModel>>> call = appApi.getAllCategories();
             call.enqueue(new Callback<BaseResponse<ArrayList<CategoryRecipeModel>>>() {
                 @Override
@@ -241,7 +241,7 @@ public class HomeFragment extends Fragment {
 
     private void retrieveLocation(){
         try {
-            appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+            appApi = TheAngkringanServices.getRetrofit(getActivity()).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<LocationModel>>> call = appApi.getAllProvinces();
             call.enqueue(new Callback<BaseResponse<ArrayList<LocationModel>>>() {
                 @Override
@@ -271,7 +271,7 @@ public class HomeFragment extends Fragment {
 
     private void retrieveLatestRecipe() {
         try {
-            appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+            appApi = TheAngkringanServices.getRetrofit(getActivity()).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.getNewRecipe();
             call.enqueue(new Callback<BaseResponse<ArrayList<RecipeModel>>>() {
                 @Override

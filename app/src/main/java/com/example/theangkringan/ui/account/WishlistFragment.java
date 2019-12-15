@@ -67,8 +67,8 @@ public class WishlistFragment extends Fragment {
     // Call Api
     private void retrieveWishlistRecipe() {
         try {
-            appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
-            Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.getWishlist("YcLvMVWIPlglI1wTXUd21576165193", "5");
+            appApi = TheAngkringanServices.getRetrofit(getActivity()).create(TheAngkringanAPI.class);
+            Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.getWishlist( "5");
             call.enqueue(new Callback<BaseResponse<ArrayList<RecipeModel>>>() {
                 @Override
                 public void onResponse(Call<BaseResponse<ArrayList<RecipeModel>>> call, Response<BaseResponse<ArrayList<RecipeModel>>> response) {

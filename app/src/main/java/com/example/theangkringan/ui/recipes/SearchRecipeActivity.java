@@ -101,7 +101,7 @@ public class SearchRecipeActivity extends AppCompatActivity {
 
     private void retrieveRecipe(String param) {
         try {
-            appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+            appApi = TheAngkringanServices.getRetrofit(SearchRecipeActivity.this).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.searchRecipe(param);
             call.enqueue(new Callback<BaseResponse<ArrayList<RecipeModel>>>() {
                 @Override

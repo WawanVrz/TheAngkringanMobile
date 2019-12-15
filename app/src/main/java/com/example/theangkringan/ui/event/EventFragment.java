@@ -73,7 +73,7 @@ public class EventFragment extends Fragment {
 
     private void retrievePromo() {
         try {
-            appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+            appApi = TheAngkringanServices.getRetrofit(getActivity()).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<EventModel>>> call = appApi.getAllPromos();
             call.enqueue(new Callback<BaseResponse<ArrayList<EventModel>>>() {
                 @Override

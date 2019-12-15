@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private TheAngkringanAPI appApi;
 
     static final String TAG = LoginActivity.class.getSimpleName();
+    private AppPreferences userPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,8 @@ public class LoginActivity extends AppCompatActivity {
 
         inputEmail = findViewById(R.id.edt_username);
         inputPassword = findViewById(R.id.edt_password);
-
-        if(!TextUtils.isEmpty(AppPreferences.getUserToken(LoginActivity.this))){
+        userPreference = new AppPreferences(this);
+        if(!TextUtils.isEmpty(userPreference.getUserToken(LoginActivity.this))){
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
         }
@@ -106,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void callLogin(String username, String password){
-        appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+        appApi = TheAngkringanServices.getRetrofit(LoginActivity.this).create(TheAngkringanAPI.class);
         Call<BaseResponse<LoginModel>> call = appApi.doLogin(username, password);
         call.enqueue(new Callback<BaseResponse<LoginModel>>() {
             @Override
@@ -114,7 +115,8 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
                         if (response.body().getData() != null) {
-                            AppPreferences.storeUserToken(LoginActivity.this, response.body().getData().getToken());
+                            userPreference.storeUserToken(LoginActivity.this, response.body().getData().getToken());
+                            userPreference.storeUserUnique(LoginActivity.this, String.valueOf(response.body().getData().getUser_id()));
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();

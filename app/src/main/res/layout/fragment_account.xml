@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/user_layout"
-        android:visibility="gone">
+        android:visibility="visible">
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             android:layout_width="150dp"
             android:layout_height="100dp"
             android:layout_weight="0.7"
-            android:src="@drawable/ic_launcher_background"
+            tools:src="@drawable/ic_launcher_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -40,11 +40,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dummy_name"
                 android:textStyle="bold"
+                android:id="@+id/tv_full_name"
                 android:textSize="16sp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/dummy_email"
+                android:id="@+id/tv_detail_email"
                 android:textSize="14sp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,13 +55,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/dummy_recipe_title"
+                    android:text="@string/gender_title"
                     android:textStyle="bold"
                     android:layout_weight="1"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/dummy_recipe_fav"
+                    android:text="@string/phone_number"
                     android:textStyle="bold"
                     android:layout_weight="1"/>
             </LinearLayout>
@@ -71,13 +73,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="4"
+                    android:id="@+id/tv_gender"
                     android:layout_weight="1"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="5"
+                    android:id="@+id/tv_phone"
                     android:layout_weight="1"/>
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/holo_blue_dark"
+                android:id="@+id/btn_gotosettings"
+                android:textStyle="bold"
+                android:text="Go to Settings >"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -103,6 +115,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/sign_in_layout"
+        android:visibility="gone"
         android:gravity="center">
         <TextView
             android:layout_width="match_parent"

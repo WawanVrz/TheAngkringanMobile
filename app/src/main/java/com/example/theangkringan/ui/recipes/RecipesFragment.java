@@ -70,7 +70,7 @@ public class RecipesFragment extends Fragment {
     // Call Api
     private void retrieveAllRecipe() {
         try {
-            appApi = TheAngkringanServices.getRetrofit().create(TheAngkringanAPI.class);
+            appApi = TheAngkringanServices.getRetrofit(getActivity()).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<RecipeModel>>> call = appApi.getAllRecipe();
             call.enqueue(new Callback<BaseResponse<ArrayList<RecipeModel>>>() {
                 @Override

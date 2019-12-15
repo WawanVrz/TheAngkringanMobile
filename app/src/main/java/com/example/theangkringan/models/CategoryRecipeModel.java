@@ -13,6 +13,11 @@ public class CategoryRecipeModel implements Parcelable {
     private String updated_at = null;
     private String deleted_at = null;
 
+    @Override
+    public String toString() {
+        return category_name;
+    }
+
     public int getId() {
         return id;
     }

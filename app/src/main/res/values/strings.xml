@@ -32,7 +32,7 @@
     <string name="sub_header_signup">Register your credentials below</string>
     <string name="placeholder_email">Enter your email</string>
     <string name="sub_header_login">Enter your credentials below</string>
-    <string name="category_recipe">Category recipe : Masakan Padang</string>
+    <string name="category_recipe">Category recipe</string>
     <string name="rating_value">4.5</string>
     <string name="btn_sign_in_text">Already have an account? Sign in Now</string>
     <string name="radio_male">Male</string>
@@ -53,4 +53,20 @@
     <string name="how_to_cook">How to cook</string>
     <string name="input_the_detail">input the detail</string>
     <string name="del_btn">Del</string>
+    <string name="input_category_recipe">Input Category recipe</string>
+    <string name="input_recipe_title">Input recipe title</string>
+    <string name="input_link_video">Input Link Video</string>
+    <string name="link_video">Link Video</string>
+    <string name="input_province">Input Province</string>
+    <string name="input_city">Input City</string>
+    <string name="notes">Notes</string>
+    <string name="input_notes">Input Notes</string>
+    <string name="city">City</string>
+    <string name="province">Province</string>
+    <string name="gender_title">Gender</string>
+    <string name="phone_number">Phone number</string>
+    <string name="dummy_comment">Makanannya enak sekali</string>
+
+    <string name="tab_my_recipe">My Recipe</string>
+    <string name="tab_my_wishlist">My Wishlist</string>
 </resources>
