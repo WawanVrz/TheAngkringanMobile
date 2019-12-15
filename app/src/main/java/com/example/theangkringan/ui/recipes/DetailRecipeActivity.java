@@ -38,10 +38,12 @@ import com.example.theangkringan.models.BaseResponse;
 import com.example.theangkringan.models.RatingModel;
 import com.example.theangkringan.models.RecipeModel;
 import com.example.theangkringan.models.ReviewModel;
+import com.example.theangkringan.models.WishlistModel;
 import com.example.theangkringan.services.AppPreferences;
 import com.example.theangkringan.services.TheAngkringanAPI;
 import com.example.theangkringan.services.TheAngkringanServices;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -62,6 +64,7 @@ public class DetailRecipeActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private CollapsingToolbarLayout collapsToolbar;
     private ImageView imgCover;
+    private FloatingActionButton favoriteBtn;
 
     private RecyclerView mRecyclerview;
     private UserCommentAdapter mAdapter;
@@ -69,6 +72,7 @@ public class DetailRecipeActivity extends AppCompatActivity {
     private TheAngkringanAPI appApi;
     static final String TAG = DetailRecipeActivity.class.getSimpleName();
     public static String RECIPE_ID = "recipe_id";
+    public static String RECIPE_TYPE = "recipe_type";
 
     private ArrayList<ReviewModel> listReview = new ArrayList<>();
     private AppPreferences userPreference;
@@ -100,6 +104,7 @@ public class DetailRecipeActivity extends AppCompatActivity {
         btnAddReview = findViewById(R.id.btn_add_review);
         rbDetailRating = findViewById(R.id.rb_detail_rating);
         mRecyclerview = findViewById(R.id.rv_list_review);
+        favoriteBtn = findViewById(R.id.favorite_btn);
         mRecyclerview.setHasFixedSize(true);
         recipe_id = getIntent().getExtras().getString(RECIPE_ID);
         retrieveAllRecipe(getIntent().getExtras().getString(RECIPE_ID));
@@ -116,7 +121,27 @@ public class DetailRecipeActivity extends AppCompatActivity {
         btnAddReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowDialog();
+                if(!TextUtils.isEmpty(userPreference.getUserToken(DetailRecipeActivity.this))) {
+                    ShowDialog();
+                }else{
+                    ShowInfoDialog();
+                }
+            }
+        });
+        favoriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(userPreference.getUserToken(DetailRecipeActivity.this))) {
+                    if(getIntent().getExtras().getString(RECIPE_TYPE) != null){
+                        if(getIntent().getExtras().getString(RECIPE_TYPE).equals("wishlist")) {
+                            deleteWishlist(userPreference.getUserUnique(DetailRecipeActivity.this), recipe_id);
+                        }
+                    }else{
+                        addWishlist(userPreference.getUserUnique(DetailRecipeActivity.this), recipe_id);
+                    }
+                }else{
+                    ShowInfoDialog();
+                }
             }
         });
     }
@@ -152,6 +177,25 @@ public class DetailRecipeActivity extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         });
+        builder.create();
+        builder.show();
+
+    }
+
+    public void ShowInfoDialog()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Information");
+        builder.setMessage("Lakukan Login terlebih dahulu untuk menambahkan favorit. Masuk ke halaman akun.");
+
+        builder.setPositiveButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+
+                });
         builder.create();
         builder.show();
 
@@ -315,19 +359,17 @@ public class DetailRecipeActivity extends AppCompatActivity {
         }
     }
 
-    private void addWishlist(String userId, final String recipe_id, String rating, String comment) {
+    private void addWishlist(String userId, String recipe_id) {
         try {
             appApi = TheAngkringanServices.getRetrofit(DetailRecipeActivity.this).create(TheAngkringanAPI.class);
-            Call<BaseResponse<AddReviewModel>> call = appApi.addReview(userId, recipe_id, rating, comment);
-
-            call.enqueue(new Callback<BaseResponse<AddReviewModel>>() {
+            Call<BaseResponse<WishlistModel>> call = appApi.addWishlistRecipe(userId, recipe_id);
+            call.enqueue(new Callback<BaseResponse<WishlistModel>>() {
                 @Override
-                public void onResponse(Call<BaseResponse<AddReviewModel>> call, Response<BaseResponse<AddReviewModel>> response) {
+                public void onResponse(Call<BaseResponse<WishlistModel>> call, Response<BaseResponse<WishlistModel>> response) {
                     try {
                         if (response.isSuccessful()) {
                             if (response.body().getData() != null) {
-                                Toast.makeText(DetailRecipeActivity.this, "Comment Succesfull", Toast.LENGTH_SHORT).show();
-                                mAdapter.notifyDataSetChanged();
+                                Toast.makeText(DetailRecipeActivity.this, "Berhasil ditambahkan", Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (Exception e) {
@@ -336,7 +378,32 @@ public class DetailRecipeActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<BaseResponse<AddReviewModel>> call, Throwable t) {
+                public void onFailure(Call<BaseResponse<WishlistModel>> call, Throwable t) {
+                    Log.d(TAG, "Error");
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteWishlist(String userId, String recipe_id) {
+        try {
+            appApi = TheAngkringanServices.getRetrofit(DetailRecipeActivity.this).create(TheAngkringanAPI.class);
+            Call<BaseResponse> call = appApi.deleteWishlistRecipe(userId, recipe_id);
+            call.enqueue(new Callback<BaseResponse>() {
+                @Override
+                public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(DetailRecipeActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(Call<BaseResponse> call, Throwable t) {
                     Log.d(TAG, "Error");
                 }
             });

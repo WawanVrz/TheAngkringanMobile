@@ -6,23 +6,21 @@ import android.preference.PreferenceManager;
 
 public class AppPreferences {
 
-    static final String KEY_USER_TOKEN ="access_token";
-    static final String KEY_USER_UNIQUE ="user_unique";
-    static final String PREFS_NAME ="login";
+    String KEY_USER_TOKEN ="access_token";
+    String KEY_USER_UNIQUE ="user_unique";
+    String PREFS_NAME ="login";
 
-    private final SharedPreferences preferences;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     public AppPreferences(Context context) {
-        preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-    }
-//    private static SharedPreferences getSharedPreference(Context context){
-//        return context.getSharedPreferences(KEY_LOGIN, Context.MODE_PRIVATE);
-//    }
+        preferences = context.getSharedPreferences(PREFS_NAME, context.MODE_PRIVATE);
+        editor = preferences.edit();
 
+    }
     public void storeUserToken(Context context, String accessToken){
-        SharedPreferences.Editor editor = preferences.edit();
         editor.putString(KEY_USER_TOKEN, accessToken);
-        editor.apply();
+        editor.commit();
     }
 
     public String getUserToken(Context context){
@@ -30,9 +28,8 @@ public class AppPreferences {
     }
 
     public void storeUserUnique(Context context, String userUnique){
-        SharedPreferences.Editor editor = preferences.edit();
         editor.putString(KEY_USER_UNIQUE, userUnique);
-        editor.apply();
+        editor.commit();
     }
 
     public String getUserUnique(Context context){
@@ -40,8 +37,8 @@ public class AppPreferences {
     }
 
     public void clearUserToken (Context context){
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.apply();
+        editor.putString(KEY_USER_UNIQUE, "");
+        editor.putString(KEY_USER_TOKEN, "");
+        editor.commit();
     }
 }

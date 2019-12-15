@@ -12,6 +12,7 @@ import com.example.theangkringan.models.LoginModel;
 import com.example.theangkringan.models.RatingModel;
 import com.example.theangkringan.models.RecipeModel;
 import com.example.theangkringan.models.ReviewModel;
+import com.example.theangkringan.models.WishlistModel;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -114,11 +115,17 @@ public interface TheAngkringanAPI {
     Call<BaseResponse<ArrayList<RecipeModel>>> getRecipeByCategory(
             @Query("recipe_category") String recipe_category
     );
-
-    @GET("recipes/add_wishlist")
-    Call<BaseResponse<ArrayList<RecipeModel>>> addWishlistRecipe (
-            @Query("user_id") String user_id,
-            @Query("recipe_id") String recipe_id
+    @FormUrlEncoded
+    @POST("recipes/add_wishlist")
+    Call<BaseResponse<WishlistModel>> addWishlistRecipe (
+            @Field("user_id") String user_id,
+            @Field("recipe_id") String recipe_id
+    );
+    @FormUrlEncoded
+    @POST("recipes/delete_wishlist")
+    Call<BaseResponse> deleteWishlistRecipe (
+            @Field("user_id") String user_id,
+            @Field("recipe_id") String recipe_id
     );
 
     @FormUrlEncoded //done

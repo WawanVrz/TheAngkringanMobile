@@ -131,6 +131,7 @@ public class AccountFragment extends Fragment {
         });
     }
 
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
