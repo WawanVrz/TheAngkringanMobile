@@ -1,10 +1,6 @@
 package com.example.theangkringan.ui.account;
 
-import androidx.appcompat.app.AppCompatActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,12 +8,16 @@ import android.widget.Button;
 
 import com.example.theangkringan.R;
 import com.example.theangkringan.models.BaseResponse;
-import com.example.theangkringan.models.DetailUser;
 import com.example.theangkringan.services.AppPreferences;
 import com.example.theangkringan.services.TheAngkringanAPI;
 import com.example.theangkringan.services.TheAngkringanServices;
+import com.example.theangkringan.ui.about.AboutActivity;
+import com.example.theangkringan.ui.termscondition.TermsActivity;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -31,6 +31,10 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         btn_logout = findViewById(R.id.btn_logout);
         userPreference = new AppPreferences(this);
         btn_logout.setOnClickListener(new View.OnClickListener() {
@@ -73,5 +77,21 @@ public class SettingsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    public void gotoinfor(View view) {
+        Intent intent = new Intent(SettingsActivity.this, TermsActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoabout(View view) {
+        Intent intent = new Intent(SettingsActivity.this, AboutActivity.class);
+        startActivity(intent);
+    }
     // =================================
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

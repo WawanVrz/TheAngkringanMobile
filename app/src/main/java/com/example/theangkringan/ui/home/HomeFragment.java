@@ -8,17 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import android.widget.ProgressBar;
 
 import com.example.theangkringan.R;
 import com.example.theangkringan.adapters.CategoryRecipeAdapter;
@@ -31,7 +21,6 @@ import com.example.theangkringan.interfaces.OnLocationClickCallback;
 import com.example.theangkringan.models.BaseResponse;
 import com.example.theangkringan.models.CategoryRecipeModel;
 import com.example.theangkringan.models.EventModel;
-import com.example.theangkringan.models.LatestRecipeModel;
 import com.example.theangkringan.models.LocationModel;
 import com.example.theangkringan.models.RecipeModel;
 import com.example.theangkringan.services.TheAngkringanAPI;
@@ -44,12 +33,23 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFragment extends Fragment {
 
     private RecyclerView mRecyclerview;
     private RecyclerView mRecyclerviewCat;
     private RecyclerView mRecyclerviewLoc;
     private ViewPager mViewPager;
+    private ProgressBar progressBar;
 
     private LatestRecipeAdapter mAdapter;
     private CategoryRecipeAdapter mCatAdapter;
@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressBar = view.findViewById(R.id.event_loading);
         searchLayout = view.findViewById(R.id.search_layout);
         mRecyclerview = view.findViewById(R.id.rv_latest_recipe);
         mRecyclerviewCat = view.findViewById(R.id.rv_category_recipe);
@@ -214,6 +215,7 @@ public class HomeFragment extends Fragment {
 
     private void retrieveCatRecipe(){
         try {
+            showLoading(true);
             appApi = TheAngkringanServices.getRetrofit(getActivity()).create(TheAngkringanAPI.class);
             Call<BaseResponse<ArrayList<CategoryRecipeModel>>> call = appApi.getAllCategories();
             call.enqueue(new Callback<BaseResponse<ArrayList<CategoryRecipeModel>>>() {
@@ -225,19 +227,23 @@ public class HomeFragment extends Fragment {
                                     || response.body().getData().size() > 0) {
                                 categoryList.addAll(response.body().getData());
                                 initRecyclerviewCat();
+                                showLoading(false);
                             }
                         }
                     } catch (Exception e) {
+                        showLoading(false);
                         e.printStackTrace();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<BaseResponse<ArrayList<CategoryRecipeModel>>> call, Throwable t) {
+                    showLoading(false);
                     Log.d(TAG, "Error");
                 }
             });
         }catch (Exception e){
+            showLoading(false);
             e.printStackTrace();
         }
     }
@@ -302,4 +308,12 @@ public class HomeFragment extends Fragment {
     }
 
     // ============== call API ==============
+
+    private void showLoading(Boolean state) {
+        if (state) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
 }

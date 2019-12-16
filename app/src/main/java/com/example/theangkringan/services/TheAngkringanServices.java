@@ -1,9 +1,6 @@
 package com.example.theangkringan.services;
 
 import android.content.Context;
-import android.text.TextUtils;
-
-import com.example.theangkringan.ui.account.SettingsActivity;
 
 import java.io.IOException;
 

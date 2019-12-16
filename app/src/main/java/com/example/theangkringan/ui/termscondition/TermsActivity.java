@@ -1,10 +1,10 @@
 package com.example.theangkringan.ui.termscondition;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.example.theangkringan.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class TermsActivity extends AppCompatActivity {
 

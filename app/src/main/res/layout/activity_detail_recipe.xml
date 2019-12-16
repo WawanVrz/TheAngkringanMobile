@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
+        android:layout_marginRight="15dp"
         app:layout_anchor="@id/applayout"
         app:layout_anchorGravity="bottom|right|end"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

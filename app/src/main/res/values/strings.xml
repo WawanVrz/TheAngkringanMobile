@@ -12,6 +12,39 @@
     <string name="recipe_title">Recipe Title</string>
     <string name="location_title">Location</string>
     <string name="event_and_promo_title">Event and Promo</string>
+    <string name="welcometext">Welcome To The Angkringan</string>
+    <string name="aboutus1">The Angkringan was established in 2019. The Angkringan is a multiplatform food-focused on digital media that discusses the recipes of traditional archipelago cuisine. Taking the tag #LestarikanResepNusantara, The Angkringan
+always presenting an inspiring and appetizing archipelago cuisine recipe content format.</string>
+    <string name="aboutus2">Through this mobile application, it is expected to make it easier for people who want to cook archipelago cuisine and do not need to bother anymore.
+We present all recipes from 34 provinces in Indonesia. What are you waiting for, lets cook and taste the typical dishes of our beloved Indonesian archipelago.</string>
+    <string name="aboutus3">#LestarikanResepNusantara</string>
+    <string name="help1">1.	Bagaimana cara mendaftar akun di The Angkringan App?\n
+a.	Masuk ke halaman “Account”\n
+b.	Isi informasi yang dibutuhkan untuk membuat akun di The Angkringan\n
+c.	Tekan tombol “Register”\n
+d.	Selamat kamu sudah berhasil membuat akun di The Angkringan App\n
+</string>
+    <string name="help2">2.	Bagaimana cara membuat resep di The Angkringan App?\n
+a.	Masuk ke halaman “Account”\n
+b.	Tekan tombol “Buat Resep” \n
+c.	Isi informasi yang tersedia mengenai resep, dan jangan lupa untuk mengisi informasi sejelas mungkin dan kualitas foto sebaik mungkin.\n
+d.	Tekan tombol “Upload Resep”\n
+e.	Resep kreasimu akan masuk tahap kurasi dari chef internal kami, jika lolos maka resep kreasimu akan terpublish \n
+</string>
+    <string name="help3">3.	Bagaimana cara menambahkan resep yang saya suka menjadi resep favorit?\n
+a.	Masuk ke halaman detail resep\n
+b.	Tekan tombol “Favorit”\n
+c.	Secara otomatis, resep tersebut akan masuk kedalam list favorit di dalam halaman “Akun” milikmu\n
+</string>
+    <string name="help4">4.	Bagaimana cara memberikan komentar pada resep yang ada di The Angkringan App?\n
+a.	Masuk ke halaman detail resep\n
+b.	Lalu di section paling bawah, kamu bisa menuliskan komentar dalam bentuk kalimat \n
+c.	Tekan tombol “Kirim”\n
+d.	Komentar milikmu akan otomatis muncul di section “Komentar”\n
+</string>
+    <string name="help5">5.	Dimana saya dapat bertanya lebih lanjut mengenai The Angkringan Apps?\n
+a.	Silahkan hubungi kami via email di: hello@theangkringan.harmonydshine.web.id\n
+</string>
     <string name="dummy_description">I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</string>
     <string name="dummy_content">I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</string>
 
@@ -43,8 +76,8 @@
     <string name="dummy_email">wawan_rahmawah@gmail.com</string>
     <string name="dummy_recipe_title">Recipe</string>
     <string name="dummy_recipe_fav">Favorite</string>
-    <string name="revision_recipe">Revision Recipe!</string>
-    <string name="inprogress_recipe">inProgress Recipe</string>
+    <string name="revision_recipe">Rejected Recipe</string>
+    <string name="inprogress_recipe">Waiting Approval Recipe</string>
     <string name="approval_recipe">Approval Recipe</string>
     <string name="add_recipe">Add recipe</string>
     <string name="tv_recipe_title">Recipe title</string>

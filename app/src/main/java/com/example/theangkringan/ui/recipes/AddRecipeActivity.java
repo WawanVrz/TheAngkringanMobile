@@ -1,26 +1,10 @@
 package com.example.theangkringan.ui.recipes;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.http.Part;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,17 +19,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.theangkringan.MainActivity;
 import com.example.theangkringan.R;
 import com.example.theangkringan.adapters.AddItemRecipeAdapter;
-import com.example.theangkringan.adapters.RecipeAdapter;
-import com.example.theangkringan.interfaces.OnRecipeClickCallback;
 import com.example.theangkringan.models.AddRecipeModel;
 import com.example.theangkringan.models.BaseResponse;
 import com.example.theangkringan.models.CategoryRecipeModel;
 import com.example.theangkringan.models.CityModel;
 import com.example.theangkringan.models.LocationModel;
-import com.example.theangkringan.models.RecipeModel;
 import com.example.theangkringan.services.AppPreferences;
 import com.example.theangkringan.services.TheAngkringanAPI;
 import com.example.theangkringan.services.TheAngkringanServices;
@@ -55,13 +35,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
@@ -103,6 +92,10 @@ public class AddRecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         final Button addIng = findViewById(R.id.add_ingridients);
         final Button addStep = findViewById(R.id.add_cook_step);
@@ -474,7 +467,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                     try {
                         if (response.isSuccessful()) {
                             if (response.body().getData() != null) {
-                                Toast.makeText(getApplicationContext(), "Suksessss", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Success Create Recipe", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                         }
@@ -492,5 +485,11 @@ public class AddRecipeActivity extends AppCompatActivity {
         }
     }
     //========================
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
 }

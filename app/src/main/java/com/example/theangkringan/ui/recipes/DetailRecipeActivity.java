@@ -1,17 +1,6 @@
 package com.example.theangkringan.ui.recipes;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
@@ -29,10 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.theangkringan.R;
-import com.example.theangkringan.adapters.RecipeAdapter;
 import com.example.theangkringan.adapters.UserCommentAdapter;
-import com.example.theangkringan.interfaces.OnRecipeClickCallback;
-import com.example.theangkringan.models.AddRecipeModel;
 import com.example.theangkringan.models.AddReviewModel;
 import com.example.theangkringan.models.BaseResponse;
 import com.example.theangkringan.models.RatingModel;
@@ -45,8 +31,16 @@ import com.example.theangkringan.services.TheAngkringanServices;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailRecipeActivity extends AppCompatActivity {
 
@@ -312,6 +306,7 @@ public class DetailRecipeActivity extends AppCompatActivity {
                             if (response.body().getData() != null) {
                                 Toast.makeText(DetailRecipeActivity.this, "Comment Succesfull", Toast.LENGTH_SHORT).show();
                                 mAdapter.notifyDataSetChanged();
+                                retrieveAllComment(recipe_id);
                             }
                         }
                     } catch (Exception e) {
