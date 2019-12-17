@@ -1,6 +1,7 @@
 package com.example.theangkringan.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.theangkringan.R;
+import com.example.theangkringan.interfaces.OnBannerClickCallback;
+import com.example.theangkringan.interfaces.OnCategoryRecipeClickCallback;
 import com.example.theangkringan.models.EventModel;
+import com.example.theangkringan.ui.event.DetailEventActivity;
 
 import java.util.ArrayList;
 
@@ -25,6 +29,12 @@ public class SliderAdapter extends PagerAdapter {
         this.mContext = context;
     }
 
+    private OnBannerClickCallback onItemClickCallback;
+
+    public void setOnItemClickCallback(OnBannerClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
+    }
+
     @Override
     public int getCount() {
         return bannerList.size();
@@ -37,17 +47,16 @@ public class SliderAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         inflater = (LayoutInflater) mContext.getSystemService(mContext.LAYOUT_INFLATER_SERVICE);
         View mView = inflater.inflate(R.layout.item_slider_banner, container, false);
 
-//        mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, DetailEventActivity.class);
-//                mContext.startActivity(intent);
-//            }
-//        });
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallback.onItemClicked(bannerList.get(position));
+            }
+        });
 
         ImageView imgView = mView.findViewById(R.id.img_item_banner);
         Glide.with(mContext)

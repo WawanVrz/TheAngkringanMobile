@@ -15,6 +15,7 @@ import com.example.theangkringan.adapters.CategoryRecipeAdapter;
 import com.example.theangkringan.adapters.LatestRecipeAdapter;
 import com.example.theangkringan.adapters.LocationAdapter;
 import com.example.theangkringan.adapters.SliderAdapter;
+import com.example.theangkringan.interfaces.OnBannerClickCallback;
 import com.example.theangkringan.interfaces.OnCategoryRecipeClickCallback;
 import com.example.theangkringan.interfaces.OnLatestRecipeClickCallback;
 import com.example.theangkringan.interfaces.OnLocationClickCallback;
@@ -25,6 +26,7 @@ import com.example.theangkringan.models.LocationModel;
 import com.example.theangkringan.models.RecipeModel;
 import com.example.theangkringan.services.TheAngkringanAPI;
 import com.example.theangkringan.services.TheAngkringanServices;
+import com.example.theangkringan.ui.event.DetailEventActivity;
 import com.example.theangkringan.ui.recipes.DetailRecipeActivity;
 import com.example.theangkringan.ui.recipes.DetailRecipeListActivity;
 import com.example.theangkringan.ui.recipes.SearchRecipeActivity;
@@ -106,6 +108,17 @@ public class HomeFragment extends Fragment {
         slider = new SliderAdapter(getActivity());
         slider.setBannerList(promosList);
         mViewPager.setAdapter(slider);
+
+        slider.setOnItemClickCallback(new OnBannerClickCallback() {
+            @Override
+            public void onItemClicked(EventModel data) {
+                Intent intent = new Intent(getActivity(), DetailEventActivity.class);
+                intent.putExtra(DetailEventActivity.DATA_TITLE, data.getTitle());
+                intent.putExtra(DetailEventActivity.DATA_DESC, data.getSubtitle());
+                intent.putExtra(DetailEventActivity.DATA_IMG, data.getImage());
+                startActivity(intent);
+            }
+        });
 
         /*After setting the adapter use the timer */
         final Handler handler = new Handler();

@@ -10,6 +10,7 @@ import retrofit2.Response;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -102,7 +103,9 @@ public class SearchRecipeActivity extends AppCompatActivity {
         mAdapter.setOnItemClickCallback(new OnRecipeClickCallback() {
             @Override
             public void onItemClicked(RecipeModel data) {
-
+                Intent intent = new Intent(SearchRecipeActivity.this, DetailRecipeActivity.class);
+                intent.putExtra(DetailRecipeActivity.RECIPE_ID, String.valueOf(data.getId()));
+                startActivity(intent);
             }
         });
         mAdapter.setRecipeData(listRecipe);

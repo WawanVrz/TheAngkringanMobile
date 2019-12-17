@@ -26,6 +26,8 @@ import com.example.theangkringan.services.AppPreferences;
 import com.example.theangkringan.services.TheAngkringanAPI;
 import com.example.theangkringan.services.TheAngkringanServices;
 import com.example.theangkringan.ui.recipes.AddRecipeActivity;
+import com.example.theangkringan.ui.recipes.DetailRecipeActivity;
+import com.example.theangkringan.ui.recipes.DetailRecipeListActivity;
 
 import java.util.ArrayList;
 
@@ -89,7 +91,9 @@ public class MyRecipeFragment extends Fragment {
         mAdapterApprove.setOnItemClickCallback(new OnRecipeClickCallback() {
             @Override
             public void onItemClicked(RecipeModel data) {
-
+                Intent intent = new Intent(getActivity(), DetailRecipeActivity.class);
+                intent.putExtra(DetailRecipeActivity.RECIPE_ID, String.valueOf(data.getId()));
+                startActivity(intent);
             }
         });
         mAdapterApprove.setRecipeData(listRecipeApprove);
