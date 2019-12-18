@@ -3,12 +3,14 @@ package com.example.theangkringan.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.theangkringan.R;
 import com.example.theangkringan.adapters.CategoryRecipeAdapter;
@@ -24,6 +26,7 @@ import com.example.theangkringan.models.CategoryRecipeModel;
 import com.example.theangkringan.models.EventModel;
 import com.example.theangkringan.models.LocationModel;
 import com.example.theangkringan.models.RecipeModel;
+import com.example.theangkringan.services.AppPreferences;
 import com.example.theangkringan.services.TheAngkringanAPI;
 import com.example.theangkringan.services.TheAngkringanServices;
 import com.example.theangkringan.ui.event.DetailEventActivity;
@@ -52,6 +55,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerviewLoc;
     private ViewPager mViewPager;
     private ProgressBar progressBar;
+    private TextView tvWelcome;
 
     private LatestRecipeAdapter mAdapter;
     private CategoryRecipeAdapter mCatAdapter;
@@ -71,6 +75,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<LocationModel> locationList = new ArrayList<>();
 
     static final String TAG = HomeFragment.class.getSimpleName();
+    private AppPreferences userPreference;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +93,7 @@ public class HomeFragment extends Fragment {
         mRecyclerviewCat = view.findViewById(R.id.rv_category_recipe);
         mRecyclerviewLoc = view.findViewById(R.id.rv_location);
         mViewPager = view.findViewById(R.id.vp_promo_banner);
+        tvWelcome = view.findViewById(R.id.welcometext);
         mRecyclerview.setHasFixedSize(true);
         mRecyclerviewCat.setHasFixedSize(true);
         mRecyclerviewLoc.setHasFixedSize(true);
@@ -95,6 +102,10 @@ public class HomeFragment extends Fragment {
         retrieveLocation();
         retrievePromo();
 
+        userPreference = new AppPreferences(getActivity());
+        if(!TextUtils.isEmpty(userPreference.getUserToken(getActivity()))) {
+            tvWelcome.setText(getString(R.string.welcometext) + " " + userPreference.getFullName(getActivity()));
+        }
         searchLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

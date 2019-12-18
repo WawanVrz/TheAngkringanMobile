@@ -117,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.body().getData() != null) {
                             userPreference.storeUserToken(LoginActivity.this, response.body().getData().getToken());
                             userPreference.storeUserUnique(LoginActivity.this, String.valueOf(response.body().getData().getUser_id()));
+                            userPreference.storeFullName(LoginActivity.this, String.valueOf(response.body().getData().getName()));
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);

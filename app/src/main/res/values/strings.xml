@@ -106,4 +106,7 @@ a.	Silahkan hubungi kami via email di: hello@theangkringan.harmonydshine.web.id\
     <string name="about_us">About Us ></string>
     <string name="logout_the_angkringan">Logout The Angkringan</string>
     <string name="detail_makanan">detail makanan</string>
+    <string name="update_account">Update</string>
+    <string name="go_to_settings">Go To Settings</string>
+    <string name="update_profile">Update Profile</string>
 </resources>

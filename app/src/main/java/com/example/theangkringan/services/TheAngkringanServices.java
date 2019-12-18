@@ -20,13 +20,13 @@ public class TheAngkringanServices {
     private static AppPreferences userPreference;
 
     public static Retrofit getRetrofit(final Context mContext) {
-        final String token = new AppPreferences(mContext).getUserToken(mContext);
+        userPreference = new AppPreferences(mContext);
         OkHttpClient client = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
             @Override
             public Response intercept(@NonNull Chain chain) throws IOException {
                 Request request = chain.request()
                         .newBuilder()
-                        .addHeader("Authorization", token)
+                        .addHeader("Authorization", userPreference.getUserToken(mContext))
                         .build();
                 return chain.proceed(request);
             }

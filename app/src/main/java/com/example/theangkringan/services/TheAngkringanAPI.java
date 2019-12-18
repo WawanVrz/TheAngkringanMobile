@@ -12,6 +12,7 @@ import com.example.theangkringan.models.LoginModel;
 import com.example.theangkringan.models.RatingModel;
 import com.example.theangkringan.models.RecipeModel;
 import com.example.theangkringan.models.ReviewModel;
+import com.example.theangkringan.models.UpdateProfile;
 import com.example.theangkringan.models.WishlistModel;
 import com.google.gson.JsonObject;
 import org.json.JSONObject;
@@ -164,6 +165,18 @@ public interface TheAngkringanAPI {
             @Query("province") int province,
             @Query("city") int city,
             @Query("status") int status
+    );
+
+    @Multipart
+    @POST("account/update") //done
+    Call<BaseResponse<UpdateProfile>> updateProfile(
+            @Query("user_id") int user_id,
+            @Query("fullname") String fullname,
+            @Query("email") String email,
+            @Query("phone") String phone,
+            @Part MultipartBody.Part avatar,
+            @Query("address") String address,
+            @Query("gender") String gender
     );
 
 

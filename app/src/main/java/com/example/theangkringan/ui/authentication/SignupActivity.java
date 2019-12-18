@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.theangkringan.HomeActivity;
 import com.example.theangkringan.R;
@@ -38,6 +40,7 @@ public class SignupActivity extends AppCompatActivity {
     private RadioButton radioButton;
 
     private TheAngkringanAPI appApi;
+    private ProgressBar progressBar;
 
     static final String TAG = SignupActivity.class.getSimpleName();
     @Override
@@ -51,6 +54,7 @@ public class SignupActivity extends AppCompatActivity {
         inputPhone = findViewById(R.id.input_phone_num);
         radioGroup = findViewById(R.id.groupradio);
         btnSignup = findViewById(R.id.btn_signup);
+        progressBar = findViewById(R.id.signup_loading);
 
         tvSignIn = findViewById(R.id.tv_signin);
         tvSignIn.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +151,6 @@ public class SignupActivity extends AppCompatActivity {
         if (isvalid){
             int selectedId = radioGroup.getCheckedRadioButtonId();
             radioButton = (RadioButton) findViewById(selectedId);
-            Log.d("radiobuttonnya: ", radioButton.getText().toString());
             callSingUp(
                     inputEmail.getEditText().getText().toString(),
                     inputPassword.getEditText().getText().toString(),
@@ -159,6 +162,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void callSingUp(String username, String password, String fullname, String phonenum, String location, String gender){
+        showLoading(true);
         appApi = TheAngkringanServices.getRetrofit(SignupActivity.this).create(TheAngkringanAPI.class);
         Call<BaseResponse<LoginModel>> call = appApi.doRegiterMember(fullname, location, username,phonenum, gender, password);
         call.enqueue(new Callback<BaseResponse<LoginModel>>() {
@@ -167,21 +171,25 @@ public class SignupActivity extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
                         if (response.body().getData() != null) {
+                            showLoading(false);
+                            Toast.makeText(SignupActivity.this, "Register successful", Toast.LENGTH_SHORT).show();
                             showDialog();
-                            Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
-                            startActivity(intent);
-                            finish();
                         }else{
+                            showLoading(false);
+                            Toast.makeText(SignupActivity.this, "Register failed", Toast.LENGTH_SHORT).show();
                             showErrorDialog();
                         }
                     }
                 } catch (Exception e) {
+                    showLoading(false);
+                    Toast.makeText(SignupActivity.this, "Register failed", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<LoginModel>> call, Throwable t) {
+                showLoading(false);
                 Log.d(TAG, "Error");
             }
         });
@@ -196,6 +204,9 @@ public class SignupActivity extends AppCompatActivity {
                 .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
                         dialog.dismiss();
+                        Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 });
 
@@ -217,5 +228,13 @@ public class SignupActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    private void showLoading(Boolean state) {
+        if (state) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

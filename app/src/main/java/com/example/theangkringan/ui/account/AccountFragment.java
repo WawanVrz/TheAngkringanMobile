@@ -65,6 +65,7 @@ public class AccountFragment extends Fragment {
     private TextView tv_gender;
     private TextView tv_phone;
     private TextView btn_gotosettings;
+    private TextView btn_update_profile;
 
     private TheAngkringanAPI appApi;
     private AppPreferences userPreference;
@@ -90,6 +91,7 @@ public class AccountFragment extends Fragment {
         tv_gender = view.findViewById(R.id.tv_gender);
         tv_phone = view.findViewById(R.id.tv_phone);
         btn_gotosettings = view.findViewById(R.id.btn_gotosettings);
+        btn_update_profile = view.findViewById(R.id.btn_update_profile);
 
         mViewPager = (ViewPager) view.findViewById(R.id.vp_container);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
@@ -118,6 +120,14 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_update_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AccountUpdateActivity.class);
                 startActivity(intent);
             }
         });

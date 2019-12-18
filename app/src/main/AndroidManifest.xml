@@ -17,7 +17,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.account.SettingsActivity"></activity>
+        <activity android:name=".ui.account.AccountUpdateActivity"></activity>
+        <activity android:name=".ui.account.SettingsActivity" />
         <activity android:name=".ui.recipes.AddRecipeActivity" />
         <activity android:name=".ui.recipes.SearchRecipeActivity" />
         <activity android:name=".ui.recipes.DetailRecipeListActivity" />
@@ -46,8 +47,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
